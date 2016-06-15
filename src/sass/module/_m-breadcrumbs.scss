@@ -1,0 +1,35 @@
+@charset 'utf-8';
+
+.breadcrumbs {
+	@include centerContent;
+	&__list {
+		@media only screen and (max-width: 480px){
+			padding-left: 10px;
+			margin: 0 0 10px 0;
+		}
+		&-item {
+			display: inline-block;
+			font-size: $fs-xs;
+			color: #888;
+			&:before {
+				content: ">";
+				padding-right: 5px;
+			}
+			&:first-child {
+				&:before {
+					content: none;
+				}
+			}
+			a {
+				color: $color-text;
+				&.active {
+					font-weight: bold;
+				}
+				&:hover {
+					border-bottom: 1px dotted #9E9F9F;
+					padding-bottom: 3px;
+				}
+			}
+		}
+	}
+}

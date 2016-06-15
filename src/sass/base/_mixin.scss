@@ -1,0 +1,16 @@
+@charset 'utf-8';
+
+@mixin centerContent() {
+  width: $width;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+@mixin central-word() {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-align-items: center; /* 縦方向中央揃え（Safari用） */
+	align-items: center; /* 縦方向中央揃え */
+	-webkit-justify-content: center; /* 横方向中央揃え（Safari用） */
+	justify-content: center; /* 横方向中央揃え */
+}
