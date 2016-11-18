@@ -30,38 +30,33 @@ gulp.task('jade', function() {
 
 
 gulp.task('sass', function () {
-    return gulp
-        .src('src/sass/*.scss')
-        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
-        .pipe(glob())
-        .pipe(sass())
-        .pipe(ap())
-        .pipe(cssmin())
-        .pipe(gulp.dest('assets/css'));
+		return gulp
+				.src('src/sass/*.scss')
+				.pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+				.pipe(glob())
+				.pipe(sass())
+				.pipe(ap())
+				.pipe(cssmin())
+				.pipe(gulp.dest('assets/css'));
 });
 
 // browser
 gulp.task("browser-sync", function () {
-    browser({
-        server: {
-        	baseDir: "./",
-        	index: "index.html"
-        }
-    });
+		browser({
+					// WordPress
+//				proxy: "http://127.0.0.1:8080"
+					//static
+				server: {
+					baseDir: "./",
+					index: "index.html"
+				}
+		});
 });
 
 gulp.task("bs-reload", function () {
-    browser.reload();
+		browser.reload();
 });
 
-// watch
-gulp.task("watch",["browser-sync"], function() {
-		gulp.watch("src/sass/**/*.scss",["sass","bs-reload"]);
-		gulp.watch("src/jade/**/*.jade",["jade","bs-reload"]);
-		gulp.watch("*.php", ["bs-reload"]);
-		gulp.watch("assets/css/*.css", ["bs-reload"]);
-		gulp.watch("src/js/**/*.js",["js","bs-reload"]);
-	});
 
 // imagemin
 gulp.task("imagemin", function(){
@@ -70,9 +65,19 @@ gulp.task("imagemin", function(){
 		.pipe(gulp.dest("assets/img"));
 	});
 
-// build
-gulp.task("build",["sass","imagemin","jade","js"]);
+// watch
+gulp.task("watch",["browser-sync"], function() {
+		gulp.watch("src/sass/**/*.scss",["sass","bs-reload"]);
+		gulp.watch("*.php", ["bs-reload"]);
+		gulp.watch("src/jade/**/*.jade", ["jade","bs-reload"]);
+		gulp.watch("**/*.php", ["bs-reload"]);
+		gulp.watch("style.css", ["bs-reload"]);
+		gulp.watch("src/img/**", ["imagemin","bs-reload"]);
+	});
 
-gulp.task('default', ['sass', 'imagemin','jade','js'], function() {
-  console.log('done');
+// build
+gulp.task("default",["sass","imagemin","jade","js","watch"]);
+
+gulp.task('build', ['sass', 'imagemin','jade','js'], function() {
+	console.log('done');
 });
