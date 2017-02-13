@@ -43,9 +43,9 @@ gulp.task('sass', function () {
 // browser
 gulp.task("browser-sync", function () {
 		browser({
-					// WordPress
+// WordPress
 //				proxy: "http://127.0.0.1:8080"
-					//static
+//static
 				server: {
 					baseDir: "./",
 					index: "index.html"
@@ -60,7 +60,7 @@ gulp.task("bs-reload", function () {
 
 // imagemin
 gulp.task("imagemin", function(){
-	gulp.src("src/img/*.{png,jpg,gif,svg}")
+	gulp.src("src/img/**/*.{png,jpg,gif,svg}")
 		.pipe(imagemin())
 		.pipe(gulp.dest("assets/img"));
 	});
