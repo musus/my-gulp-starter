@@ -25,7 +25,7 @@ gulp.task('pug', function() {
 		.src('src/pug/**/*.pug')
 		.pipe(plumber())
 		.pipe(jade({pretty: true}))
-		.pipe(gulp.dest('/'))
+		.pipe(gulp.dest('./'))
 	});
 
 gulp.task('sass', function () {
