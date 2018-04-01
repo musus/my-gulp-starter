@@ -9,6 +9,7 @@ var glob = require('gulp-sass-glob');
 var jade = require('gulp-jade');
 var uglify = require('gulp-uglify');
 var notify = require( 'gulp-notify' );
+var pug = require('gulp-jade');
 
 
 // js
@@ -18,16 +19,14 @@ gulp.task('js', function() {
 		.pipe( gulp.dest('assets/js'));
 	});
 
-
-// jade
-gulp.task('jade', function() {
+// pug
+gulp.task('pug', function() {
 	return gulp
-		.src('src/jade/**/*.jade')
+		.src('src/pug/**/*.pug')
 		.pipe(plumber())
 		.pipe(jade({pretty: true}))
-		.pipe(gulp.dest('./'))
+		.pipe(gulp.dest('/'))
 	});
-
 
 gulp.task('sass', function () {
 		return gulp
@@ -69,15 +68,15 @@ gulp.task("imagemin", function(){
 gulp.task("watch",["browser-sync"], function() {
 		gulp.watch("src/sass/**/*.scss",["sass","bs-reload"]);
 		gulp.watch("*.php", ["bs-reload"]);
-		gulp.watch("src/jade/**/*.jade", ["jade","bs-reload"]);
+		gulp.watch("src/pug/**/*.pug", ["pug","bs-reload"]);
 		gulp.watch("**/*.php", ["bs-reload"]);
 		gulp.watch("style.css", ["bs-reload"]);
 		gulp.watch("src/img/**", ["imagemin","bs-reload"]);
 	});
 
 // build
-gulp.task("default",["sass","imagemin","jade","js","watch"]);
+gulp.task("default",["sass","imagemin","pug","js","watch"]);
 
-gulp.task('build', ['sass', 'imagemin','jade','js'], function() {
+gulp.task('build', ['sass', 'imagemin','pug','js'], function() {
 	console.log('done');
 });
